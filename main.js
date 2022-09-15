@@ -138,6 +138,12 @@ specialBtns.forEach((btn) => {
             case "clear":
                 resetCalc();
                 return
+            case "delete":
+                currentDisplay.length > 1 ?
+                    currentDisplay = currentDisplay.slice(0, currentDisplay.length - 1) :
+                    resetCurrentDisplay();
+                updateDisplay();
+                return
         }
     })
 })

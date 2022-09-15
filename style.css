@@ -53,6 +53,10 @@
     background-color: rgb(72, 235, 218);
 }
 
+.disabled {
+    background-color: rgb(53, 184, 171);
+}
+
 #main {
     min-height: 100vh;
 }

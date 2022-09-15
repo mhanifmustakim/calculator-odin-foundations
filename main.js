@@ -80,10 +80,16 @@ numBtns.forEach((btn) => {
         }
 
         const btnValue = e.target.getAttribute("data-value");
-        if (currentDisplay === "0") {
-            currentDisplay = btnValue;
-        } else {
-            currentDisplay += btnValue;
+        switch (btnValue) {
+            case "decimal":
+                currentDisplay += !currentDisplay.includes(".") ? "." : "";
+                break
+            default:
+                if (currentDisplay === "0") {
+                    currentDisplay = btnValue;
+                } else {
+                    currentDisplay += btnValue;
+                }
         }
 
         updateDisplay();

@@ -11,6 +11,9 @@ function product(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if (num2 === 0) {
+        return "UNDEFINED :(";
+    }
     return num1 / num2;
 }
 
@@ -59,6 +62,15 @@ function updateNumberBtns() {
     numBtns.forEach((btn) => {
         numbersDisabled ? btn.classList.add("disabled") : btn.classList.remove("disabled");
     })
+}
+
+function resetCalc() {
+    calcMemory.prevNum = null;
+    calcMemory.operator = null;
+    numbersDisabled = false;
+    resetCurrentDisplay();
+    updateNumberBtns();
+    updateDisplay();
 }
 
 numBtns.forEach((btn) => {
@@ -113,9 +125,13 @@ specialBtns.forEach((btn) => {
         switch (thisBtn) {
             case "equalTo":
                 calculate();
+                numbersDisabled = calcMemory.operator === null ? false : true;
                 calcMemory.operator = null;
-                numbersDisabled = true;
                 updateNumberBtns();
+                return
+            case "clear":
+                resetCalc();
+                return
         }
     })
 })

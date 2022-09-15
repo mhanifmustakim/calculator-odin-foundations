@@ -1,0 +1,96 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: inherit;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+:root {
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.flex-column {
+    flex-flow: column nowrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-space-around {
+    justify-content: space-around;
+}
+
+.justify-right {
+    justify-content: right;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.calc-row {
+    flex: 1;
+}
+
+.calc-button {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    border: rgb(64, 209, 195) 0.5rem solid;
+    border-radius: 1rem;
+    background-color: rgb(72, 235, 218);
+}
+
+#main {
+    min-height: 100vh;
+}
+
+#content {
+    flex: 1;
+}
+
+#calculator {
+    width: 500px;
+    height: 700px;
+    background-color: turquoise;
+    border: rgb(49, 168, 156) 0.5rem solid;
+    border-radius: 1em;
+    font-size: 3rem;
+}
+
+#display {
+    flex: 1;
+    background-color: rgb(124, 138, 136);
+    margin: 1.5rem;
+    margin-bottom: 0;
+    padding: 0 1rem;
+    border: rgb(94, 105, 104) 0.3rem solid;
+    border-radius: 0.5em;
+    color: whitesmoke;
+}
+
+#keys {
+    flex: 4;
+    margin: 1.5rem;
+}
+
+#header {
+    font-size: 3rem;
+    height: 5rem;
+}
+
+#footer {
+    height: 3rem;
+}

@@ -18,30 +18,44 @@
         <div id="content" class="container justify-center align-center">
             <div id="calculator" class="container flex-column justify-space-around">
                 <div id="display" class="container align-center justify-right">0</div>
-                <div id="keys" class="container flex-column">
-                    <div id="row-1" class="calc-row container">
-                        <button data-value="1" class="calc-button num-btn">1</button>
-                        <button data-value="2" class="calc-button num-btn">2</button>
-                        <button data-value="3" class="calc-button num-btn">3</button>
-                        <button data-value="add" class="calc-button operator-btn">+</button>
+                <div id="keys" class="container">
+                    <div id="number-keys" class="container flex-column">
+                        <div class="calc-row container">
+                            <button data-value="1" class="calc-button num-btn">1</button>
+                            <button data-value="2" class="calc-button num-btn">2</button>
+                            <button data-value="3" class="calc-button num-btn">3</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="4" class="calc-button num-btn">4</button>
+                            <button data-value="5" class="calc-button num-btn">5</button>
+                            <button data-value="6" class="calc-button num-btn">6</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="7" class="calc-button num-btn">7</button>
+                            <button data-value="8" class="calc-button num-btn">8</button>
+                            <button data-value="9" class="calc-button num-btn">9</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="." class="calc-button special-btn">.</button>
+                            <button data-value="0" class="calc-button num-btn">0</button>
+                            <button data-value="equalTo" class="calc-button special-btn">=</button>
+                        </div>
                     </div>
-                    <div id="row-2" class="calc-row container">
-                        <button data-value="4" class="calc-button num-btn">4</button>
-                        <button data-value="5" class="calc-button num-btn">5</button>
-                        <button data-value="6" class="calc-button num-btn">6</button>
-                        <button data-value="subtract" class="calc-button operator-btn">-</button>
-                    </div>
-                    <div id="row-3" class="calc-row container">
-                        <button data-value="7" class="calc-button num-btn">7</button>
-                        <button data-value="8" class="calc-button num-btn">8</button>
-                        <button data-value="9" class="calc-button num-btn">9</button>
-                        <button data-value="product" class="calc-button operator-btn">×</button>
-                    </div>
-                    <div id="row-4" class="calc-row container">
-                        <button data-value="." class="calc-button num-btn">.</button>
-                        <button data-value="0" class="calc-button num-btn">0</button>
-                        <button data-value="equalTo" class="calc-button equalTo">=</button>
-                        <button data-value="divide" class="calc-button operator-btn">÷</button>
+                    <div id="special-keys" class="container flex-column">
+                        <div class="calc-row container">
+                            <button data-value="clear" class="calc-button special-btn">AC</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="subtract" class="calc-button operator-btn">-</button>
+                            <button data-value="add" class="calc-button operator-btn">+</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="product" class="calc-button operator-btn">×</button>
+                            <button data-value="divide" class="calc-button operator-btn">÷</button>
+                        </div>
+                        <div class="calc-row container">
+                            <button data-value="delete" class="calc-button special-btn">DEL</button>
+                        </div>
                     </div>
                 </div>
             </div>

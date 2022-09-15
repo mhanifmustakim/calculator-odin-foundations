@@ -62,7 +62,7 @@
 }
 
 #calculator {
-    width: 500px;
+    width: 700px;
     height: 700px;
     background-color: turquoise;
     border: rgb(49, 168, 156) 0.5rem solid;
@@ -84,6 +84,14 @@
 #keys {
     flex: 4;
     margin: 1.5rem;
+}
+
+#number-keys {
+    flex: 2;
+}
+
+#special-keys {
+    flex: 1;
 }
 
 #header {

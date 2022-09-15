@@ -11,10 +11,12 @@ function product(num1, num2) {
 }
 
 function divide(num1, num2) {
+    const accuracy = 4;
+    const multiplier = 10 ** accuracy;
     if (num2 === 0) {
         return "UNDEFINED :(";
     }
-    return num1 / num2;
+    return Math.round(num1 * multiplier / num2) / multiplier;
 }
 
 function operate({ prevNum, operator }, thisNum) {

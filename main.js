@@ -14,6 +14,8 @@ function divide(num1, num2) {
     const accuracy = 4;
     const multiplier = 10 ** accuracy;
     if (num2 === 0) {
+        disableBtns(true, [...numBtns, ...operatorBtns, ...specialBtns]);
+        disableBtns(false, [clearBtn]);
         return "UNDEFINED :(";
     }
     return Math.round(num1 * multiplier / num2) / multiplier;
@@ -34,10 +36,12 @@ function operate({ prevNum, operator }, thisNum) {
 
 const numBtns = document.querySelectorAll(".num-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
-const specialBtns = document.querySelectorAll(".special-btn");
+const clearBtn = document.querySelector("#clear-btn");
+const delBtn = document.querySelector("#del-btn");
+const equalBtn = document.querySelector("#equal-btn");
+const specialBtns = [clearBtn, delBtn, equalBtn];
 const display = document.querySelector("#display");
 let currentDisplay = "0";
-let numbersDisabled = false;
 let calcMemory = {
     prevNum: null,
     operator: null,
@@ -52,6 +56,7 @@ function resetCurrentDisplay() {
 }
 
 function calculate() {
+    // Calculates current input and outputs in Display
     calcMemory.prevNum = calcMemory.operator === null ?
         calcMemory.prevNum = +currentDisplay :
         calcMemory.prevNum = operate(calcMemory, +currentDisplay);
@@ -60,27 +65,28 @@ function calculate() {
     updateDisplay();
 }
 
-function updateNumberBtns() {
-    numBtns.forEach((btn) => {
-        numbersDisabled ? btn.classList.add("disabled") : btn.classList.remove("disabled");
+function disableBtns(disabled, btns) {
+    btns.forEach((btn) => {
+        if (disabled) {
+            btn.setAttribute("disabled", "");
+            btn.classList.add("disabled");
+        } else {
+            btn.removeAttribute("disabled");
+            btn.classList.remove("disabled");
+        }
     })
 }
 
 function resetCalc() {
     calcMemory.prevNum = null;
     calcMemory.operator = null;
-    numbersDisabled = false;
+    disableBtns(false, [...numBtns, ...specialBtns, ...operatorBtns]);
     resetCurrentDisplay();
-    updateNumberBtns();
     updateDisplay();
 }
 
 numBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-        if (numbersDisabled) {
-            return
-        }
-
         const btnValue = e.target.getAttribute("data-value");
         switch (btnValue) {
             case "decimal":
@@ -119,10 +125,8 @@ operatorBtns.forEach((btn) => {
         }
 
         resetCurrentDisplay();
-        if (numbersDisabled) {
-            numbersDisabled = false;
-            updateNumberBtns()
-        }
+        disableBtns(false, [...numBtns, ...operatorBtns, delBtn]);
+        disableBtns(true, [btn]);
     })
 })
 
@@ -133,9 +137,11 @@ specialBtns.forEach((btn) => {
         switch (thisBtn) {
             case "equalTo":
                 calculate();
-                numbersDisabled = calcMemory.operator === null ? false : true;
+                const status = calcMemory.operator === null ? false : true;
+                disableBtns(status, [...numBtns]);
+                disableBtns(false, [...operatorBtns]);
+                disableBtns(true, [delBtn]);
                 calcMemory.operator = null;
-                updateNumberBtns();
                 return
             case "clear":
                 resetCalc();
@@ -149,3 +155,7 @@ specialBtns.forEach((btn) => {
         }
     })
 })
+
+
+// TODO: Add memory in UI
+// TODO: Enable changing operations

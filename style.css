@@ -50,11 +50,11 @@
     margin: 0.5rem;
     border: rgb(64, 209, 195) 0.5rem solid;
     border-radius: 1rem;
-    background-color: rgb(72, 235, 218);
+    background-color: rgb(229, 235, 234);
 }
 
 .disabled {
-    background-color: rgb(53, 184, 171);
+    background-color: rgb(188, 194, 193);
 }
 
 #main {

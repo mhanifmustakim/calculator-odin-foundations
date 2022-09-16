@@ -1,6 +1,8 @@
+// Controls the accuracy of the calculator of up to {accuracy} decimal points
 const accuracy = 4;
 const multiplier = 10 ** accuracy;
 
+// Functions to return value correct to {accuracy} decimal points
 function add(num1, num2) {
     return Math.round(num1 * multiplier + num2 * multiplier) / multiplier;
 }
@@ -47,6 +49,7 @@ let calcMemory = {
 };
 
 function updateDisplay() {
+    // Updates mainDisplay & followed by memoryDisplay
     const mainDisplay = display.querySelector("#main-display");
 
     mainDisplay.innerText = currentDisplay;
@@ -54,6 +57,7 @@ function updateDisplay() {
 }
 
 function updateMemoryDisplay(input = null) {
+    // Only updates memoryDisplay, if given arguments, directly puts into memoryDisplay
     const memoryDisplay = display.querySelector("#memory-display");
 
     if (input) {
@@ -71,22 +75,26 @@ function resetCurrentDisplay() {
 }
 
 function calculate() {
-    // Calculates current input and outputs in Display
+    // Saves the current calculation to be put in memoryDisplay
     const currentCalculation = `${calcMemory.prevNum} ${calcMemory.operator} ${currentDisplay} =`;
 
+    // Performs calculation
     calcMemory.prevNum = calcMemory.operator === null ?
         calcMemory.prevNum = +currentDisplay :
         calcMemory.prevNum = operate(calcMemory, +currentDisplay);
 
+    // Display results of the calculation
     currentDisplay = new String(calcMemory.prevNum);
     updateDisplay();
 
+    // Updates memoryDisplay if successful calculation performed
     if (calcMemory.prevNum && calcMemory.operator) {
         updateMemoryDisplay(currentCalculation);
     }
 }
 
 function handleDivisionBy0() {
+    // Disables all buttons except Clear button
     const mainDisplay = display.querySelector("#main-display");
 
     if (mainDisplay.innerText === "UNDEFINED :(") {
@@ -96,6 +104,7 @@ function handleDivisionBy0() {
 }
 
 function disableBtns(disabled, btns) {
+    // disables buttons given in {btns} and update the classList
     btns.forEach((btn) => {
         if (disabled) {
             btn.setAttribute("disabled", "");
@@ -157,6 +166,8 @@ operatorBtns.forEach((btn) => {
 
         resetCurrentDisplay();
         disableBtns(false, [...numBtns, ...operatorBtns, ...specialBtns]);
+
+        // Prevents clicking the same button twice
         disableBtns(true, [btn]);
         handleDivisionBy0();
     })
@@ -169,10 +180,17 @@ specialBtns.forEach((btn) => {
         switch (thisBtn) {
             case "equalTo":
                 calculate();
+
+                // Checks if an actual calculation is performed
                 const status = calcMemory.operator === null ? false : true;
+
+                // If yes, this disables manually updating answer using the numBtns
                 disableBtns(status, [...numBtns]);
-                disableBtns(false, [...operatorBtns]);
+                // Prevents deleting digits from answer, and pressing equal twice without extra input
                 disableBtns(true, [delBtn, equalBtn]);
+
+
+                disableBtns(false, [...operatorBtns]);
                 calcMemory.operator = null;
                 handleDivisionBy0();
                 return

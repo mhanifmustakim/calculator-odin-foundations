@@ -14,8 +14,6 @@ function divide(num1, num2) {
     const accuracy = 4;
     const multiplier = 10 ** accuracy;
     if (num2 === 0) {
-        disableBtns(true, [...numBtns, ...operatorBtns, ...specialBtns]);
-        disableBtns(false, [clearBtn]);
         return "UNDEFINED :(";
     }
     return Math.round(num1 * multiplier / num2) / multiplier;
@@ -27,9 +25,9 @@ function operate({ prevNum, operator }, thisNum) {
             return add(prevNum, thisNum);
         case "-":
             return subtract(prevNum, thisNum);
-        case "*":
+        case "×":
             return product(prevNum, thisNum);
-        case "/":
+        case "÷":
             return divide(prevNum, thisNum);
     }
 }
@@ -48,7 +46,23 @@ let calcMemory = {
 };
 
 function updateDisplay() {
-    display.innerText = currentDisplay;
+    const mainDisplay = display.querySelector("#main-display");
+
+    mainDisplay.innerText = currentDisplay;
+    updateMemoryDisplay();
+}
+
+function updateMemoryDisplay(input = null) {
+    const memoryDisplay = display.querySelector("#memory-display");
+
+    if (input) {
+        memoryDisplay.innerText = input;
+        return
+    }
+
+    memoryDisplay.innerText = 0;
+    if (calcMemory.prevNum !== null) memoryDisplay.innerText = calcMemory.prevNum;
+    if (calcMemory.operator !== null) memoryDisplay.innerText += " " + calcMemory.operator;
 }
 
 function resetCurrentDisplay() {
@@ -57,12 +71,18 @@ function resetCurrentDisplay() {
 
 function calculate() {
     // Calculates current input and outputs in Display
+    const currentCalculation = `${calcMemory.prevNum} ${calcMemory.operator} ${currentDisplay} =`;
+
     calcMemory.prevNum = calcMemory.operator === null ?
         calcMemory.prevNum = +currentDisplay :
         calcMemory.prevNum = operate(calcMemory, +currentDisplay);
 
     currentDisplay = new String(calcMemory.prevNum);
     updateDisplay();
+
+    if (calcMemory.prevNum && calcMemory.operator) {
+        updateMemoryDisplay(currentCalculation);
+    }
 }
 
 function disableBtns(disabled, btns) {
@@ -100,6 +120,7 @@ numBtns.forEach((btn) => {
                 }
         }
 
+        disableBtns(false, [...operatorBtns]);
         updateDisplay();
     })
 })
@@ -117,15 +138,15 @@ operatorBtns.forEach((btn) => {
                 calcMemory.operator = "-";
                 break
             case "product":
-                calcMemory.operator = "*";
+                calcMemory.operator = "×";
                 break
             case "divide":
-                calcMemory.operator = "/";
+                calcMemory.operator = "÷";
                 break
         }
 
         resetCurrentDisplay();
-        disableBtns(false, [...numBtns, ...operatorBtns, delBtn]);
+        disableBtns(false, [...numBtns, ...operatorBtns, ...specialBtns]);
         disableBtns(true, [btn]);
     })
 })
@@ -140,7 +161,7 @@ specialBtns.forEach((btn) => {
                 const status = calcMemory.operator === null ? false : true;
                 disableBtns(status, [...numBtns]);
                 disableBtns(false, [...operatorBtns]);
-                disableBtns(true, [delBtn]);
+                disableBtns(true, [delBtn, equalBtn]);
                 calcMemory.operator = null;
                 return
             case "clear":

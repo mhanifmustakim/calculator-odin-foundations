@@ -85,6 +85,15 @@ function calculate() {
     }
 }
 
+function handleDivisionBy0() {
+    const mainDisplay = display.querySelector("#main-display");
+
+    if (mainDisplay.innerText === "UNDEFINED :(") {
+        disableBtns(true, [...numBtns, ...operatorBtns, ...specialBtns]);
+        disableBtns(false, [clearBtn]);
+    }
+}
+
 function disableBtns(disabled, btns) {
     btns.forEach((btn) => {
         if (disabled) {
@@ -148,6 +157,7 @@ operatorBtns.forEach((btn) => {
         resetCurrentDisplay();
         disableBtns(false, [...numBtns, ...operatorBtns, ...specialBtns]);
         disableBtns(true, [btn]);
+        handleDivisionBy0();
     })
 })
 
@@ -163,6 +173,7 @@ specialBtns.forEach((btn) => {
                 disableBtns(false, [...operatorBtns]);
                 disableBtns(true, [delBtn, equalBtn]);
                 calcMemory.operator = null;
+                handleDivisionBy0();
                 return
             case "clear":
                 resetCalc();
@@ -176,7 +187,3 @@ specialBtns.forEach((btn) => {
         }
     })
 })
-
-
-// TODO: Add memory in UI
-// TODO: Enable changing operations
